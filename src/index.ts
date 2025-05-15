@@ -7,12 +7,12 @@ import sumchecker from 'sumchecker';
 
 import { getArtifactFileName, getArtifactRemoteURL, getArtifactVersion } from './artifact-utils.js';
 import {
-  ElectronArtifactDetails,
-  ElectronDownloadCacheMode,
-  ElectronDownloadRequestOptions,
-  ElectronGenericArtifactDetails,
-  ElectronPlatformArtifactDetails,
-  ElectronPlatformArtifactDetailsWithDefaults,
+  QuickTVArtifactDetails,
+  QuickTVDownloadCacheMode,
+  QuickTVDownloadRequestOptions,
+  QuickTVGenericArtifactDetails,
+  QuickTVPlatformArtifactDetails,
+  QuickTVPlatformArtifactDetailsWithDefaults,
 } from './types.js';
 import { Cache } from './Cache.js';
 import { getDownloaderForSystem } from './downloader-resolver.js';
@@ -34,18 +34,18 @@ export { getHostArch } from './utils.js';
 export { initializeProxy } from './proxy.js';
 export * from './types.js';
 
-const d = debug('@electron/get:index');
+const d = debug('@quick-tv/get:index');
 
-if (process.env.ELECTRON_GET_USE_PROXY) {
+if (process.env.QUICK_TV_GET_USE_PROXY) {
   initializeProxy();
 }
 
 type ArtifactDownloader = (
-  _artifactDetails: ElectronPlatformArtifactDetailsWithDefaults | ElectronGenericArtifactDetails,
+  _artifactDetails: QuickTVPlatformArtifactDetailsWithDefaults | QuickTVGenericArtifactDetails,
 ) => Promise<string>;
 
 async function validateArtifact(
-  artifactDetails: ElectronArtifactDetails,
+  artifactDetails: QuickTVArtifactDetails,
   downloadedAssetPath: string,
   _downloadArtifact: ArtifactDownloader,
 ): Promise<void> {
@@ -84,7 +84,7 @@ async function validateArtifact(
             mirrorOptions: artifactDetails.mirrorOptions,
             // Never use the cache for loading checksums, load
             // them fresh every time
-            cacheMode: ElectronDownloadCacheMode.Bypass,
+            cacheMode: QuickTVDownloadCacheMode.Bypass,
           });
         }
 
@@ -133,13 +133,13 @@ async function validateArtifact(
  * @category Download Artifact
  */
 export async function downloadArtifact(
-  artifactDetails: ElectronPlatformArtifactDetailsWithDefaults | ElectronGenericArtifactDetails,
+  artifactDetails: QuickTVPlatformArtifactDetailsWithDefaults | QuickTVGenericArtifactDetails,
 ): Promise<string> {
-  const details: ElectronArtifactDetails = {
-    ...(artifactDetails as ElectronArtifactDetails),
+  const details: QuickTVArtifactDetails = {
+    ...(artifactDetails as QuickTVArtifactDetails),
   };
   if (!artifactDetails.isGeneric) {
-    const platformArtifactDetails = details as ElectronPlatformArtifactDetails;
+    const platformArtifactDetails = details as QuickTVPlatformArtifactDetails;
     if (!platformArtifactDetails.platform) {
       d('No platform found, defaulting to the host platform');
       platformArtifactDetails.platform = process.platform;
@@ -242,13 +242,13 @@ export async function downloadArtifact(
  */
 export function download(
   version: string,
-  options?: ElectronDownloadRequestOptions,
+  options?: QuickTVDownloadRequestOptions,
 ): Promise<string> {
   return downloadArtifact({
     ...options,
     version,
     platform: process.platform,
     arch: process.arch,
-    artifactName: 'electron',
+    artifactName: 'quick-tv',
   });
 }

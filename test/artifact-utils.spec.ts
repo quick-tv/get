@@ -49,9 +49,7 @@ describe('artifact-utils', () => {
           platform: 'linux',
           version: 'v6.0.0',
         }),
-      ).toMatchInlineSnapshot(
-        `"https://github.com/electron/electron/releases/download/v6.0.0/electron-v6.0.0-linux-x64.zip"`,
-      );
+      ).toMatchInlineSnapshot(`"https://registry.npmjs.org/v6.0.0/electron-v6.0.0-linux-x64.zip"`);
     });
 
     it('should replace the base URL when mirrorOptions.mirror is set', async () => {
@@ -132,9 +130,7 @@ describe('artifact-utils', () => {
           platform: 'linux',
           version: 'v6.0.0',
         }),
-      ).toMatchInlineSnapshot(
-        `"https://github.com/electron/electron/releases/download/all/electron-v6.0.0-linux-x64.zip"`,
-      );
+      ).toMatchInlineSnapshot(`"https://registry.npmjs.org/all/electron-v6.0.0-linux-x64.zip"`);
     });
 
     it('should replace {{ version }} when mirrorOptions.customDir is set', async () => {
@@ -149,7 +145,7 @@ describe('artifact-utils', () => {
           version: 'v1.2.3',
         }),
       ).toMatchInlineSnapshot(
-        `"https://github.com/electron/electron/releases/download/foo1.2.3bar/electron-v1.2.3-linux-x64.zip"`,
+        `"https://registry.npmjs.org/foo1.2.3bar/electron-v1.2.3-linux-x64.zip"`,
       );
     });
 
@@ -164,9 +160,7 @@ describe('artifact-utils', () => {
           platform: 'linux',
           version: 'v6.0.0',
         }),
-      ).toMatchInlineSnapshot(
-        `"https://github.com/electron/electron/releases/download/v6.0.0/custom-built-electron.zip"`,
-      );
+      ).toMatchInlineSnapshot(`"https://registry.npmjs.org/v6.0.0/custom-built-electron.zip"`);
     });
   });
 });

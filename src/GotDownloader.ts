@@ -48,7 +48,7 @@ export class GotDownloader implements Downloader<GotDownloaderOptions> {
     await fs.promises.mkdir(path.dirname(targetFilePath), { recursive: true });
     const writeStream = fs.createWriteStream(targetFilePath);
 
-    if (!quiet || !process.env.ELECTRON_GET_NO_PROGRESS) {
+    if (!quiet || !process.env.QUICK_TV_GET_NO_PROGRESS) {
       const start = new Date();
       timeout = setTimeout(() => {
         if (!downloadCompleted) {

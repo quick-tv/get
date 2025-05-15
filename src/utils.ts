@@ -4,9 +4,9 @@ import os from 'node:os';
 import path from 'node:path';
 
 import {
-  ElectronDownloadCacheMode,
-  ElectronGenericArtifactDetails,
-  ElectronPlatformArtifactDetailsWithDefaults,
+  QuickTVDownloadCacheMode,
+  QuickTVGenericArtifactDetails,
+  QuickTVPlatformArtifactDetailsWithDefaults,
 } from './types.js';
 
 async function useAndRemoveDirectory<T>(
@@ -145,28 +145,27 @@ export function setEnv(key: string, value: string | undefined): void {
 }
 
 export function effectiveCacheMode(
-  artifactDetails: ElectronPlatformArtifactDetailsWithDefaults | ElectronGenericArtifactDetails,
-): ElectronDownloadCacheMode {
-  return artifactDetails.cacheMode || ElectronDownloadCacheMode.ReadWrite;
+  artifactDetails: QuickTVPlatformArtifactDetailsWithDefaults | QuickTVGenericArtifactDetails,
+): QuickTVDownloadCacheMode {
+  return artifactDetails.cacheMode || QuickTVDownloadCacheMode.ReadWrite;
 }
 
-export function shouldTryReadCache(cacheMode: ElectronDownloadCacheMode): boolean {
+export function shouldTryReadCache(cacheMode: QuickTVDownloadCacheMode): boolean {
   return (
-    cacheMode === ElectronDownloadCacheMode.ReadOnly ||
-    cacheMode === ElectronDownloadCacheMode.ReadWrite
+    cacheMode === QuickTVDownloadCacheMode.ReadOnly ||
+    cacheMode === QuickTVDownloadCacheMode.ReadWrite
   );
 }
 
-export function shouldWriteCache(cacheMode: ElectronDownloadCacheMode): boolean {
+export function shouldWriteCache(cacheMode: QuickTVDownloadCacheMode): boolean {
   return (
-    cacheMode === ElectronDownloadCacheMode.WriteOnly ||
-    cacheMode === ElectronDownloadCacheMode.ReadWrite
+    cacheMode === QuickTVDownloadCacheMode.WriteOnly ||
+    cacheMode === QuickTVDownloadCacheMode.ReadWrite
   );
 }
 
-export function doesCallerOwnTemporaryOutput(cacheMode: ElectronDownloadCacheMode): boolean {
+export function doesCallerOwnTemporaryOutput(cacheMode: QuickTVDownloadCacheMode): boolean {
   return (
-    cacheMode === ElectronDownloadCacheMode.Bypass ||
-    cacheMode === ElectronDownloadCacheMode.ReadOnly
+    cacheMode === QuickTVDownloadCacheMode.Bypass || cacheMode === QuickTVDownloadCacheMode.ReadOnly
   );
 }

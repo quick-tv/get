@@ -1,10 +1,10 @@
-import { ElectronArtifactDetails, MirrorOptions } from './types.js';
+import { QuickTVArtifactDetails, MirrorOptions } from './types.js';
 import { ensureIsTruthyString, normalizeVersion } from './utils.js';
 
-const BASE_URL = 'https://github.com/electron/electron/releases/download/';
-const NIGHTLY_BASE_URL = 'https://github.com/electron/nightlies/releases/download/';
+const BASE_URL = 'https://github.com/quick-tv/quick-tv/releases/download/';
+const NIGHTLY_BASE_URL = 'https://github.com/quick-tv/nightlies/releases/download/';
 
-export function getArtifactFileName(details: ElectronArtifactDetails): string {
+export function getArtifactFileName(details: QuickTVArtifactDetails): string {
   ensureIsTruthyString(details, 'artifactName');
 
   if (details.isGeneric) {
@@ -34,20 +34,20 @@ function mirrorVar(
 
   return (
     // .npmrc
-    process.env[`npm_config_electron_${name.toLowerCase()}`] ||
-    process.env[`NPM_CONFIG_ELECTRON_${snakeName.toUpperCase()}`] ||
-    process.env[`npm_config_electron_${snakeName}`] ||
+    process.env[`npm_config_quick_tv_${name.toLowerCase()}`] ||
+    process.env[`NPM_CONFIG_QUICK_TV_${snakeName.toUpperCase()}`] ||
+    process.env[`npm_config_quick_tv_${snakeName}`] ||
     // package.json
-    process.env[`npm_package_config_electron_${name}`] ||
-    process.env[`npm_package_config_electron_${snakeName.toLowerCase()}`] ||
+    process.env[`npm_package_config_quick_tv_${name}`] ||
+    process.env[`npm_package_config_quick_tv_${snakeName.toLowerCase()}`] ||
     // env
-    process.env[`ELECTRON_${snakeName.toUpperCase()}`] ||
+    process.env[`QUICK_TV_${snakeName.toUpperCase()}`] ||
     options[name] ||
     defaultValue
   );
 }
 
-export async function getArtifactRemoteURL(details: ElectronArtifactDetails): Promise<string> {
+export async function getArtifactRemoteURL(details: QuickTVArtifactDetails): Promise<string> {
   const opts: MirrorOptions = details.mirrorOptions || {};
   let base = mirrorVar('mirror', opts, BASE_URL);
   if (details.version.includes('nightly')) {
@@ -68,6 +68,6 @@ export async function getArtifactRemoteURL(details: ElectronArtifactDetails): Pr
   return `${base}${path}/${file}`;
 }
 
-export function getArtifactVersion(details: ElectronArtifactDetails): string {
+export function getArtifactVersion(details: QuickTVArtifactDetails): string {
   return normalizeVersion(mirrorVar('customVersion', details.mirrorOptions || {}, details.version));
 }

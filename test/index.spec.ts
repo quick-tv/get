@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FixtureDownloader } from './FixtureDownloader';
 import { download, downloadArtifact } from '../src';
-import { DownloadOptions, ElectronDownloadCacheMode } from '../src/types';
+import { DownloadOptions, QuickTVDownloadCacheMode } from '../src/types';
 
 vi.mock('sumchecker');
 
@@ -98,7 +98,7 @@ describe('Public API', () => {
       const zipPath = await download('2.0.10', {
         cacheRoot,
         downloader,
-        cacheMode: ElectronDownloadCacheMode.ReadOnly,
+        cacheMode: QuickTVDownloadCacheMode.ReadOnly,
       });
       expect(typeof zipPath).toEqual('string');
       expect(fs.existsSync(zipPath)).toEqual(true);
@@ -116,7 +116,7 @@ describe('Public API', () => {
       const zipPath2 = await download('2.0.9', {
         cacheRoot,
         downloader,
-        cacheMode: ElectronDownloadCacheMode.ReadOnly,
+        cacheMode: QuickTVDownloadCacheMode.ReadOnly,
       });
       expect(zipPath2).not.toEqual(zipPath);
       expect(path.dirname(zipPath2).startsWith(cacheRoot)).toEqual(false);
@@ -236,7 +236,7 @@ describe('Public API', () => {
         artifactName: 'chromedriver',
         platform: 'darwin',
         arch: 'x64',
-        cacheMode: ElectronDownloadCacheMode.ReadOnly,
+        cacheMode: QuickTVDownloadCacheMode.ReadOnly,
       });
       expect(fs.existsSync(driverPath)).toEqual(true);
       expect(path.basename(driverPath)).toMatchInlineSnapshot(
@@ -264,7 +264,7 @@ describe('Public API', () => {
         artifactName: 'chromedriver',
         platform: 'darwin',
         arch: 'x64',
-        cacheMode: ElectronDownloadCacheMode.ReadOnly,
+        cacheMode: QuickTVDownloadCacheMode.ReadOnly,
       });
       expect(driverPath2).not.toEqual(driverPath);
       expect(path.dirname(driverPath2).startsWith(cacheRoot)).toEqual(false);
@@ -280,13 +280,13 @@ describe('Public API', () => {
         await downloadArtifact({
           artifactName: 'electron',
           downloader,
-          cacheMode: ElectronDownloadCacheMode.WriteOnly,
+          cacheMode: QuickTVDownloadCacheMode.WriteOnly,
           version: 'v1.3.5',
         });
         await downloadArtifact({
           artifactName: 'electron',
           downloader,
-          cacheMode: ElectronDownloadCacheMode.WriteOnly,
+          cacheMode: QuickTVDownloadCacheMode.WriteOnly,
           version: 'v2.0.3',
         });
 
@@ -298,7 +298,7 @@ describe('Public API', () => {
         await downloadArtifact({
           artifactName: 'electron',
           downloader,
-          cacheMode: ElectronDownloadCacheMode.WriteOnly,
+          cacheMode: QuickTVDownloadCacheMode.WriteOnly,
           version: 'v1.3.3',
         });
 
@@ -310,7 +310,7 @@ describe('Public API', () => {
         await downloadArtifact({
           artifactName: 'electron',
           downloader,
-          cacheMode: ElectronDownloadCacheMode.WriteOnly,
+          cacheMode: QuickTVDownloadCacheMode.WriteOnly,
           version: 'v1.0.0',
         });
 

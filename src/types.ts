@@ -64,7 +64,7 @@ export interface MirrorOptions {
  * @category Download Artifact
  * @internal
  */
-export interface ElectronDownloadRequest {
+export interface QuickTVDownloadRequest {
   /**
    * The version of Electron associated with the artifact.
    */
@@ -77,7 +77,7 @@ export interface ElectronDownloadRequest {
   artifactName: string;
 }
 
-export enum ElectronDownloadCacheMode {
+export enum QuickTVDownloadCacheMode {
   /**
    * Reads from the cache if present
    * Writes to the cache after fetch if not present
@@ -102,7 +102,7 @@ export enum ElectronDownloadCacheMode {
 /**
  * @category Download Electron
  */
-export interface ElectronDownloadRequestOptions {
+export interface QuickTVDownloadRequestOptions {
   /**
    * When set to `true`, disables checking that the artifact download completed successfully
    * with the correct payload.
@@ -162,26 +162,26 @@ export interface ElectronDownloadRequestOptions {
   /**
    * Controls the cache read and write behavior.
    *
-   * When set to either {@link ElectronDownloadCacheMode.ReadOnly | ReadOnly} or
-   * {@link ElectronDownloadCacheMode.Bypass | Bypass}, the caller is responsible
+   * When set to either {@link QuickTVDownloadCacheMode.ReadOnly | ReadOnly} or
+   * {@link QuickTVDownloadCacheMode.Bypass | Bypass}, the caller is responsible
    * for cleaning up the returned file path once they are done using it
    * (e.g. via `fs.remove(path.dirname(pathFromElectronGet))`).
    *
-   * When set to either {@link ElectronDownloadCacheMode.WriteOnly | WriteOnly} or
-   * {@link ElectronDownloadCacheMode.ReadWrite | ReadWrite} (the default), the caller
+   * When set to either {@link QuickTVDownloadCacheMode.WriteOnly | WriteOnly} or
+   * {@link QuickTVDownloadCacheMode.ReadWrite | ReadWrite} (the default), the caller
    * should not move or delete the file path that is returned as the path
    * points directly to the disk cache.
    *
-   * @defaultValue {@link ElectronDownloadCacheMode.ReadWrite}
+   * @defaultValue {@link QuickTVDownloadCacheMode.ReadWrite}
    */
-  cacheMode?: ElectronDownloadCacheMode;
+  cacheMode?: QuickTVDownloadCacheMode;
 }
 
 /**
  * @category Download Artifact
  * @internal
  */
-export type ElectronPlatformArtifactDetails = {
+export type QuickTVPlatformArtifactDetails = {
   /**
    * The target artifact platform. These are Node-style platform names, for example:
    * * `win32`
@@ -202,33 +202,31 @@ export type ElectronPlatformArtifactDetails = {
   arch: string;
   artifactSuffix?: string;
   isGeneric?: false;
-} & ElectronDownloadRequest &
-  ElectronDownloadRequestOptions;
+} & QuickTVDownloadRequest &
+  QuickTVDownloadRequestOptions;
 
 /**
  * Options to download a generic (i.e. platform and architecture-agnostic)
- * Electron artifact. Contains all options from {@link ElectronDownloadRequestOptions},
+ * Electron artifact. Contains all options from {@link QuickTVDownloadRequestOptions},
  * but specifies a `version` and `artifactName` for the artifact to download.
  *
  * @category Download Artifact
  * @interface
  */
-export type ElectronGenericArtifactDetails = {
+export type QuickTVGenericArtifactDetails = {
   isGeneric: true;
-} & ElectronDownloadRequest &
-  ElectronDownloadRequestOptions;
+} & QuickTVDownloadRequest &
+  QuickTVDownloadRequestOptions;
 
 /**
  * @category Download Artifact
  * @internal
  */
-export type ElectronArtifactDetails =
-  | ElectronPlatformArtifactDetails
-  | ElectronGenericArtifactDetails;
+export type QuickTVArtifactDetails = QuickTVPlatformArtifactDetails | QuickTVGenericArtifactDetails;
 
 /**
  * Options to download a platform and architecture-specific Electron artifact.
- * Contains all options from {@link ElectronDownloadRequestOptions}, but
+ * Contains all options from {@link QuickTVDownloadRequestOptions}, but
  * specifies a `version` and `artifactName` for the artifact to download.
  *
  * If `platform` and `arch` are omitted, they will be inferred using the host
@@ -237,8 +235,8 @@ export type ElectronArtifactDetails =
  * @category Download Artifact
  * @interface
  */
-export type ElectronPlatformArtifactDetailsWithDefaults = Omit<
-  ElectronPlatformArtifactDetails,
+export type QuickTVPlatformArtifactDetailsWithDefaults = Omit<
+  QuickTVPlatformArtifactDetails,
   'platform' | 'arch'
 > & {
   /**

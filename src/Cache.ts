@@ -6,9 +6,9 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import url from 'node:url';
 
-const d = debug('@electron/get:cache');
+const d = debug('@quick-tv/get:cache');
 
-const defaultCacheRoot = envPaths('electron', {
+const defaultCacheRoot = envPaths('quick-tv', {
   suffix: '',
 }).cache;
 
@@ -19,7 +19,7 @@ export class Cache {
     const parsedDownloadUrl = url.parse(downloadUrl);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { search, hash, pathname, ...rest } = parsedDownloadUrl;
-    const strippedUrl = url.format({ ...rest, pathname: path.dirname(pathname || 'electron') });
+    const strippedUrl = url.format({ ...rest, pathname: path.dirname(pathname || 'quick-tv') });
 
     return crypto.createHash('sha256').update(strippedUrl).digest('hex');
   }
